@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: transcenso-postgres
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: transcenso
+      POSTGRES_PASSWORD: transcenso123
+      POSTGRES_DB: transcenso_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - transcenso-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U transcenso"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  transcenso-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.100.0/24
+          gateway: 192.168.100.1
