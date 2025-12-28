@@ -15,50 +15,43 @@ datasource db {
 }
 
 
-model User {
+model person {
+  id        String      @id @default(uuid())
+  name      String
+  birthDate DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  genderId  String
+  sexualityId String
+  sexuality sexuality @relation(fields: [sexualityId], references: [id])
+  gender genderIdentity @relation(fields: [genderId], references: [id])
+  user     user[]
+}
+
+model user {
   id        String      @id @default(uuid())
   email     String   @unique
   password  String
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  gender    Gender
-  city      String?
-  professionId String?
-  isEmployed Boolean @default(false)
-  profession Profession? @relation(fields: [professionId], references: [id])
-  employees  String[]
-
+  personId    String?
+  person person? @relation(fields: [personId], references: [id])
 }
-
-enum Gender {
-  MALE
-  FEMALE
-  OTHER
-  NON_BINARY
-  PREFER_NOT_TO_SAY
-  INTERSEX
-  TRANS_MAN
-  TRANS_WOMAN
-  AGENDER
-  GENDER_FLUID
-  QUEER
-  TWO_SPIRIT
-  ANDROGYNE
-  NONE
-}
-
-model GenderIdentity {
+model genderIdentity {
   id        String   @id @default(uuid())
   name      String   @unique
+  acronym   String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  person   person[]
 }
 
-model Profession {
+model sexuality {
   id        String   @id @default(uuid())
   name      String   @unique
+  acronym   String   @unique
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt 
-  users     User[]
+  updatedAt DateTime @updatedAt
+  person   person[]
 }

@@ -18,7 +18,7 @@ export class AuthService {
   private readonly jwtService: JwtService;
 
   async signIn(
-    params: Prisma.UserCreateInput,
+    params: Prisma.userCreateInput,
   ): Promise<{ access_token: string }> {
     const user = await this.userService.user({ email: params.email });
     if (!user) {

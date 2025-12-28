@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { Prisma, User as UserModel } from 'generated/prisma/client';
+import { Prisma, user as UserModel } from 'generated/prisma/client';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { UserService } from 'src/user/user.service';
 
@@ -18,7 +18,7 @@ export class UserController {
   constructor(private userService: UserService) {}
   @Post()
   async signupUser(
-    @Body() userData: Prisma.UserCreateInput,
+    @Body() userData: Prisma.userCreateInput,
   ): Promise<UserModel> {
     return this.userService.createUser(userData);
   }
@@ -37,7 +37,7 @@ export class UserController {
   @Patch(':id')
   async updateUser(
     @Param('id') id: string,
-    @Body() userData: Prisma.UserUpdateInput,
+    @Body() userData: Prisma.userUpdateInput,
   ): Promise<UserModel> {
     return this.userService.updateUser({ where: { id }, data: userData });
   }

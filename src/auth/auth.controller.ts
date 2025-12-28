@@ -16,7 +16,7 @@ export class AuthController {
 
   @Post('signin')
   @HttpCode(HttpStatus.OK)
-  async signIn(@Body() body: Prisma.UserCreateInput) {
+  async signIn(@Body() body: Prisma.userCreateInput) {
     return this.authService.signIn(body);
   }
 }
