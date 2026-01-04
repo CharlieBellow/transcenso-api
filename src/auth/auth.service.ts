@@ -7,12 +7,12 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { Prisma } from 'generated/prisma/client';
-import { UserService } from 'src/user/user.service';
+import { PrismaService } from 'src/database/prisma.service';
 
 @Injectable()
 export class AuthService {
   @Inject()
-  private readonly userService: UserService;
+  private readonly prisma: PrismaService;
 
   @Inject()
   private readonly jwtService: JwtService;
@@ -20,7 +20,9 @@ export class AuthService {
   async signIn(
     params: Prisma.userCreateInput,
   ): Promise<{ access_token: string }> {
-    const user = await this.userService.user({ email: params.email });
+    const user = await this.prisma.user.findUnique({
+      where: { email: params.email },
+    });
     if (!user) {
       throw new NotFoundException('Usuário não encontrado');
     }

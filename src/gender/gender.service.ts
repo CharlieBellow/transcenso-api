@@ -8,9 +8,13 @@ export class GenderService {
   @Inject()
   private readonly prisma: PrismaService;
 
-  async create(createGenderDto: CreateGenderDto) {
+  async create(createGenderDto: CreateGenderDto, userId: string, personId) {
     return await this.prisma.genderIdentity.create({
-      data: createGenderDto,
+      data: {
+        ...createGenderDto,
+        // user: { connect: { id: userId } },
+        person: { connect: { id: personId } },
+      },
     });
   }
 

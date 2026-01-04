@@ -6,7 +6,9 @@ import {
   Param,
   Patch,
   Post,
+  Request,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { CreatePersonDto } from './dto/create-person.dto';
@@ -19,8 +21,11 @@ export class PersonController {
 
   @Post()
   @UseGuards(AuthGuard)
-  create(@Body() createPersonDto: CreatePersonDto) {
-    return this.personService.create(createPersonDto);
+  create(
+    @Body(new ValidationPipe()) createPersonDto: CreatePersonDto,
+    @Request() req: any,
+  ) {
+    return this.personService.create(createPersonDto, req.user.sub);
   }
 
   @Get()

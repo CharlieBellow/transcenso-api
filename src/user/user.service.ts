@@ -30,9 +30,10 @@ export class UserService {
 
   async user(
     userWhereUniqueInput: Prisma.userWhereUniqueInput,
-  ): Promise<user | null> {
+  ): Promise<Omit<user, 'password'> | null> {
     return this.prisma.user.findUnique({
       where: userWhereUniqueInput,
+      omit: { password: true },
     });
   }
 
@@ -50,6 +51,10 @@ export class UserService {
       cursor,
       where,
       orderBy,
+      // aquele include serve para trazer os dados relacionados da pessoa junto com o usuário. Pois ele está na relação do Prisma O User tem: person person? @relation(fields: [personId], references: [id]) e o person tem o user: user[]
+      include: {
+        person: { omit: { createdAt: true, updatedAt: true } },
+      },
     });
   }
 

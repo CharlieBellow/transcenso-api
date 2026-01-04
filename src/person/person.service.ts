@@ -1,5 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
+import { UserService } from 'src/user/user.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 
@@ -7,25 +13,66 @@ import { UpdatePersonDto } from './dto/update-person.dto';
 export class PersonService {
   @Inject()
   private readonly prisma: PrismaService;
+  @Inject()
+  private readonly userService: UserService;
 
-  async create(createPersonDto: CreatePersonDto) {
-    const userId = '1f54a26d-5f2e-429c-86f6-2d9366b4e1fc';
-    return await this.prisma.person.create({
-      data: {
-        ...createPersonDto,
-        user: { connect: { id: '939bc80a-84c6-41f6-9cfd-894d8ab469c0' } },
-        sexualityId: {
-          connect: { id: 'db36b90d-e8e2-43a2-af4a-a525fdce9482' },
-        },
-        genderId: {
-          connect: { id: '939bc80a-84c6-41f6-9cfd-894d8ab469c0' },
-        },
-      },
+  async create(createPersonDto: CreatePersonDto, userId: string) {
+    const hasUser = await this.prisma.user.findUnique({
+      where: { id: userId },
     });
+
+    const existsGenderId = await this.prisma.genderIdentity.findUnique({
+      where: { id: createPersonDto.genderId },
+    });
+    const existsSexualityId = await this.prisma.sexuality.findUnique({
+      where: { id: createPersonDto.sexualityId },
+    });
+
+    if (!(existsSexualityId.id == createPersonDto.sexualityId)) {
+      throw new BadRequestException('Sexuality not found');
+    }
+
+    if (!(existsGenderId.id == createPersonDto.genderId)) {
+      throw new BadRequestException('Gender not found');
+    }
+
+    if (!hasUser) {
+      throw new BadRequestException('User not found');
+    }
+    if (hasUser.personId !== null) {
+      throw new ConflictException('User already has a person associated');
+    }
+
+    if (
+      existsSexualityId.id == createPersonDto.sexualityId &&
+      existsGenderId.id == createPersonDto.genderId
+    ) {
+      const createdPerson = await this.prisma.person.create({
+        data: {
+          ...createPersonDto,
+          user: { connect: { id: userId } },
+        },
+      });
+      const userPersonId = await this.userService.updateUser({
+        where: { id: userId },
+        data: { person: { connect: { id: createdPerson.id } } },
+      });
+      console.log('userPersonId', userPersonId);
+
+      return createdPerson;
+    } else {
+      throw new BadRequestException('Gender or Sexuality not found');
+    }
   }
 
   async findAll() {
-    return await this.prisma.person.findMany();
+    return await this.prisma.person.findMany({
+      include: {
+        gender: { omit: { updatedAt: true, createdAt: true } },
+        sexuality: { omit: { updatedAt: true, createdAt: true } },
+        user: { omit: { updatedAt: true, createdAt: true, password: true } },
+      },
+    });
   }
 
   async findOne(id: string) {

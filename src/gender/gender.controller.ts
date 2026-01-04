@@ -6,7 +6,9 @@ import {
   Param,
   Patch,
   Post,
+  Request,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { CreateGenderDto } from './dto/create-gender.dto';
@@ -17,9 +19,14 @@ import { GenderService } from './gender.service';
 export class GenderController {
   constructor(private readonly genderService: GenderService) {}
 
-  @Post()
-  create(@Body() createGenderDto: CreateGenderDto) {
-    return this.genderService.create(createGenderDto);
+  @Post(':personId')
+  @UseGuards(AuthGuard)
+  create(
+    @Body(new ValidationPipe()) createGenderDto: CreateGenderDto,
+    @Request() req: any,
+    @Param('personId') personId: string,
+  ) {
+    return this.genderService.create(createGenderDto, req.sub, personId);
   }
 
   @Get()

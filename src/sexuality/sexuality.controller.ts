@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CreateSexualityDto } from './dto/create-sexuality.dto';
 import { UpdateSexualityDto } from './dto/update-sexuality.dto';
@@ -16,7 +17,7 @@ export class SexualityController {
   constructor(private readonly sexualityService: SexualityService) {}
 
   @Post()
-  create(@Body() createSexualityDto: CreateSexualityDto) {
+  create(@Body(new ValidationPipe()) createSexualityDto: CreateSexualityDto) {
     return this.sexualityService.create(createSexualityDto);
   }
 

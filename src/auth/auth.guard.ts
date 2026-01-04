@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
       const payload = this.jwtService.verify(authorization, {
         secret: process.env.SECRET || '',
       });
-      request.userid = payload; // adiciona o payload do token na requisição
+      request['user'] = payload; // adiciona o payload do token na requisição
     } catch (error) {
       throw new UnauthorizedException('Invalid token');
     }
@@ -29,8 +29,7 @@ export class AuthGuard implements CanActivate {
   }
 
   private extractTokenFromHeader(request: Request): string | undefined {
-    const [type, token] =
-      (request.headers['authorization']?.split(' ')) ?? [];
+    const [type, token] = request.headers['authorization']?.split(' ') ?? [];
     return type === 'Bearer' ? token : undefined;
   }
 }
