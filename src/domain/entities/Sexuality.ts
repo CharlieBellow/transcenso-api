@@ -1,4 +1,3 @@
-
 export interface SexualityProps {
   id?: string;
   title: string;

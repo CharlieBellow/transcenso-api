@@ -1,3 +1,5 @@
+import { PersonDTO } from 'src/domain/dtos/person-dto';
+import { Pronouns } from 'src/domain/enums/pronouns';
 
 // a interface é para definir o que vamos receber no formulário, ou seja, os dados que vamos usar para criar uma pessoa no banco.
 export interface PersonProps {
@@ -8,7 +10,7 @@ export interface PersonProps {
   cpf: string;
   rg: string;
   birthDate: Date;
-  pronouns: string;
+  pronouns: Pronouns;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -33,7 +35,7 @@ export class Person {
       .toLowerCase()
       .trim()
       .normalize('NFD') // Remove acentos
-      .replace(/[\u0300-\u036f]/g, "") 
+      .replace(/[\u0300-\u036f]/g, '') // Remove caracteres de acentos"")
       .replace(/\s+/g, '-');
 
     this.props = {
@@ -42,12 +44,11 @@ export class Person {
       createdAt: props.createdAt ?? new Date(),
     };
   }
-  
+
   get id() {
     return this._id;
   }
-  
-  get name() { 
+  get name() {
     return this.props.name;
   }
 
@@ -75,8 +76,6 @@ export class Person {
     return this.props.pronouns;
   }
 
-
-
   // Os getters :  Como as propriedades são privadas (private), os getters funcionam como uma janela. Você pode ver o nome (person.name), mas não pode alterá-lo diretamente (person.name = "Outro") sem criar um método específico para isso.
   toDTO(): PersonDTO {
     return {
@@ -87,7 +86,7 @@ export class Person {
       cpf: this.cpf,
       rg: this.rg,
       birthDate: this.birthDate,
-      pronouns: this.pronouns,
-    }
+      pronouns: this.props.pronouns,
+    };
   }
 }

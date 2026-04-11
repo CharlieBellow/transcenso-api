@@ -1,6 +1,6 @@
-import { Pronouns } from "src/domain/enums/pronouns";
+import { Pronouns } from 'src/domain/enums/pronouns';
 
-interface PersonDTO {
+export interface PersonDTO {
   id: string;
   name: string;
   socialName: string;
