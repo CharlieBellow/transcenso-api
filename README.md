@@ -1,3 +1,30 @@
+# Transcenso - Engenharia de Software & DDD
+
+Este projeto é uma plataforma em construção focada em análise demográfica. Mais do que uma aplicação, o **Transcenso** é o meu laboratório de práticas avançadas de desenvolvimento com **NestJS** e **Node.js**.
+
+## 🎯 Objetivos de Aprendizado e Implementação
+
+O desenvolvimento deste projeto é guiado pela busca da excelência arquitetural, focando em:
+
+- **Domain-Driven Design (DDD):** Modelagem de domínio rica, separando a lógica de negócio das preocupações de infraestrutura.
+- **Clean Architecture:** Organização do código em camadas para facilitar a manutenção e a implementação de testes futuros.
+- **Princípios SOLID:** Aplicação rigorosa dos cinco princípios para garantir um código robusto e extensível.
+- **NestJS Deep Dive:** Uso avançado de módulos, providers e middleware do framework.
+
+## 🏗️ Estrutura do Projeto (Em Progresso)
+
+- **Domain:** Entidades, Value Objects e regras de negócio puras.
+- **Application:** Casos de uso e serviços de aplicação.
+- **Infrastructure:** Persistência (Prisma/PostgreSQL), adaptadores e comunicações externas.
+
+## 🚧 Status: Em Construção
+O projeto está em fase incipiente, com o foco atual na **modelagem do domínio** e na estruturação da base de dados. Este repositório reflete minha evolução constante em **Orientação a Objetos** e padrões de projeto.
+
+---
+Desenvolvido por **Charlie Bellow** como parte da jornada de especialização em Engenharia de Software.
+
+
+---
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
