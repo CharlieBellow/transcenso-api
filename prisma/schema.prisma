@@ -1,57 +1,63 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// npx prisma studio > http://localhost:5555/
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "postgresql" // ou mysql, conforme seu banco
   url      = env("DATABASE_URL")
 }
 
+model Gender {
+  id          String   @id @default(uuid())
+  title       String
+  acronym     String   @unique
+  description String?
+  slug        String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-model person {
-  id        String      @id @default(uuid())
-  name      String
-  birthDate DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  genderId  String
+  // Relação: Um gênero pode estar em várias pessoas
+  people      Person[]
+
+  @@map("genders") // Nome da tabela no banco (em minúsculo/plural)
+}
+
+model Sexuality {
+  id          String   @id @default(uuid())
+  title       String
+  acronym     String   @unique
+  description String?
+  slug        String   @unique
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  people      Person[]
+
+  @@map("sexualities")
+}
+
+model Person {
+  id          String   @id @default(uuid())
+  name        String
+  socialName  String?
+  slug        String   @unique
+  cpf         String   @unique
+  rg          String   @unique
+  birthDate   DateTime
+  pronouns    String   // No banco salvamos como string (o Enum do TS ajuda na lógica)
+  
+  // Chaves estrangeiras
+  genderId    String
   sexualityId String
-  sexuality sexuality @relation(fields: [sexualityId], references: [id])
-  gender genderIdentity @relation(fields: [genderId], references: [id])
-  user     user[]
-}
 
-model user {
-  id        String      @id @default(uuid())
-  email     String   @unique
-  password  String
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  personId    String?
-  person person? @relation(fields: [personId], references: [id])
-}
-model genderIdentity {
-  id        String   @id @default(uuid())
-  name      String   @unique
-  acronym   String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  person   person[]
-}
+  // Relacionamentos para o Prisma entender a conexão
+  gender      Gender    @relation(fields: [genderId], references: [id])
+  sexuality   Sexuality @relation(fields: [sexualityId], references: [id])
 
-model sexuality {
-  id        String   @id @default(uuid())
-  name      String   @unique
-  acronym   String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  person   person[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("people")
 }
