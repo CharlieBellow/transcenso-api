@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Gender } from 'src/domain/entities/gender';
 import { GenderRepository } from 'src/domain/repositories/genderRepository';
-import { PrismaService } from '../prismaService';
 import { PrismaGenderMapper } from '../mappers/prismaGenderMapper';
+import { PrismaService } from '../PrismaService';
 
 @Injectable()
 export class PrismaGenderRepository implements GenderRepository {
@@ -16,6 +16,22 @@ export class PrismaGenderRepository implements GenderRepository {
     if (!gender) return null;
 
     return PrismaGenderMapper.toDomain(gender);
+  }
+
+  async findBySlug(slug: string): Promise<Gender | null> {
+    const gender = await this.prisma.gender.findUnique({
+      where: { slug },
+    });
+
+    if (!gender) return null;
+
+    return PrismaGenderMapper.toDomain(gender);
+  }
+
+  async listAll(): Promise<Gender[]> {
+    const genders = await this.prisma.gender.findMany();
+
+    return genders.map((g) => PrismaGenderMapper.toDomain(g));
   }
 
   async findByAcronym(acronym: string): Promise<Gender | null> {
