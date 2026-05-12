@@ -15,16 +15,14 @@ export class PrismaGenderMapper {
   }
 
   static toDomain(raw: PrismaGender): Gender {
-    return new Gender(
-      {
-        title: raw.title,
-        acronym: raw.acronym,
-        description: raw.description,
-        slug: raw.slug,
-        createdAt: raw.createdAt,
-        updatedAt: raw.updatedAt,
-      },
-      raw.id,
-    );
+    return new Gender({
+      id: raw.id,
+      title: raw.title,
+      acronym: raw.acronym,
+      description: raw.description,
+      slug: raw.slug,
+      createdAt: raw.createdAt,
+      updatedAt: raw.updatedAt,
+    });
   }
 }

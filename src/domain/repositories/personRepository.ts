@@ -11,11 +11,11 @@ import { Person } from 'src/domain/entities/person';
 // "Olha, eu ainda não decidi qual banco de dados vou usar. Mas eu aviso que, seja qual for o banco, o meu 'Porteiro de Pessoas' precisa saber fazer essas buscas (CPF, RG, ID) e saber salvar (Create).";
 // import { Person } from 'src/domain/entities/Person';
 
-export interface PersonRepository {
-  create(person: Person): Promise<void>;
-  findById(id: string): Promise<Person | null>;
-  findBySlug(slug: string): Promise<Person | null>;
-  findByCpf(cpf: string): Promise<Person | null>;
-  findByRg(rg: string): Promise<Person | null>;
-  listAll(): Promise<Person[]>;
+export abstract class PersonRepository {
+  abstract create(person: Person): Promise<void>;
+  abstract findById(id: string): Promise<Person | null>;
+  abstract findBySlug(slug: string): Promise<Person | null>;
+  abstract findByCpf(cpf: string): Promise<Person | null>;
+  abstract findByRg(rg: string): Promise<Person | null>;
+  abstract listAll(): Promise<Person[]>;
 }

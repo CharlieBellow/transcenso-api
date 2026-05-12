@@ -77,22 +77,27 @@ export class Person {
   get pronouns() {
     return this.props.pronouns;
   }
+  get genderId() {
+    return this.props.genderId;
+  }
+  get sexualityId() {
+    return this.props.sexualityId;
+  }
 
   // Os getters :  Como as propriedades são privadas (private), os getters funcionam como uma janela. Você pode ver o nome (person.name), mas não pode alterá-lo diretamente (person.name = "Outro") sem criar um método específico para isso.
 
-  /* removido porque o UseCase faz isso melhor */
-  // toDTO(): PersonDTO {
-  //   return {
-  //     id: this._id,
-  //     name: this.name,
-  //     socialName: this.socialName,
-  //     slug: this.slug,
-  //     cpf: this.cpf,
-  //     rg: this.rg,
-  //     birthDate: this.birthDate,
-  //     pronouns: this.props.pronouns,
-  //     genderId: this.props.genderId,
-  //     sexualityId: this.props.sexualityId,
-  //   };
-  // }
+  public toDTO(): PersonDTO {
+    return {
+      id: this._id,
+      name: this.name,
+      socialName: this.socialName,
+      slug: this.slug,
+      cpf: this.cpf,
+      rg: this.rg,
+      birthDate: this.birthDate,
+      pronouns: this.props.pronouns,
+      genderId: this.props.genderId,
+      sexualityId: this.props.sexualityId,
+    };
+  }
 }

@@ -1,8 +1,8 @@
 import { Sexuality } from 'src/domain/entities/sexuality';
 
-export interface SexualityRepository {
-  create(sexuality: Sexuality): Promise<void>;
-  findById(id: string): Promise<Sexuality | null>;
-  findBySlug(slug: string): Promise<Sexuality | null>;
-  findByAcronym(acronym: string): Promise<Sexuality | null>; // Também precisamos validar aqui!
+export abstract class SexualityRepository {
+  abstract create(sexuality: Sexuality): Promise<void>;
+  abstract findById(id: string): Promise<Sexuality | null>;
+  abstract findBySlug(slug: string): Promise<Sexuality | null>;
+  abstract findByAcronym(acronym: string): Promise<Sexuality | null>;
 }

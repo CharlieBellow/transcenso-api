@@ -60,6 +60,15 @@ export class Gender {
   get description() {
     return this.props.description;
   }
+  get slug() {
+    return this.props.slug;
+  }
+  get createdAt() {
+    return this.props.createdAt;
+  }
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
 
   toDTO(): GenderDTO {
     return {
@@ -67,8 +76,6 @@ export class Gender {
       title: this.title,
       acronym: this.acronym,
       description: this.description,
-      createdAt: this.props.createdAt,
-      updatedAt: this.props.updatedAt,
     };
   }
 }

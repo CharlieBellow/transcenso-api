@@ -16,6 +16,7 @@ export class Sexuality {
 
   constructor(props: SexualityProps) {
     this._id = props.id ?? crypto.randomUUID();
+
     if (!props.title || props.title.trim() === '') {
       throw new Error('O título é obrigatório.');
     }
@@ -56,6 +57,15 @@ export class Sexuality {
   get description() {
     return this.props.description;
   }
+  get slug() {
+    return this.props.slug;
+  }
+  get createdAt() {
+    return this.props.createdAt;
+  }
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
 
   toDTO(): SexualityDTO {
     return {
@@ -63,8 +73,6 @@ export class Sexuality {
       title: this.title,
       acronym: this.acronym,
       description: this.description,
-      createdAt: this.props.createdAt,
-      updatedAt: this.props.updatedAt,
     };
   }
 }
