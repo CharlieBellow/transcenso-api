@@ -5,8 +5,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql" // ou mysql, conforme seu banco
-  // url      = env("DATABASE_URL")
+  provider = "postgresql" 
 }
 
 model Gender {
@@ -46,7 +45,7 @@ model Person {
   cpf         String   @unique
   rg          String   @unique
   birthDate   DateTime
-  pronouns    String   // No banco salvamos como string (o Enum do TS ajuda na lógica)
+  pronouns    String   // No banco salva como string (o Enum do TS ajuda na lógica)
   
   // Chaves estrangeiras
   genderId    String
