@@ -1,4 +1,6 @@
+import { GenderDTO } from 'src/domain/dtos/genderDto';
 import { PersonDTO } from 'src/domain/dtos/personDto';
+import { SexualityDTO } from 'src/domain/dtos/sexualityDto';
 import { Pronouns } from 'src/domain/enums/pronouns';
 
 // a interface é para definir o que vamos receber no formulário, ou seja, os dados que vamos usar para criar uma pessoa no banco.
@@ -86,7 +88,10 @@ export class Person {
 
   // Os getters :  Como as propriedades são privadas (private), os getters funcionam como uma janela. Você pode ver o nome (person.name), mas não pode alterá-lo diretamente (person.name = "Outro") sem criar um método específico para isso.
 
-  public toDTO(): PersonDTO {
+  public toDTO(relations: {
+    gender: GenderDTO;
+    sexuality: SexualityDTO;
+  }): PersonDTO {
     return {
       id: this._id,
       name: this.name,
@@ -96,8 +101,8 @@ export class Person {
       rg: this.rg,
       birthDate: this.birthDate,
       pronouns: this.props.pronouns,
-      genderId: this.props.genderId,
-      sexualityId: this.props.sexualityId,
+      gender: relations.gender,
+      sexuality: relations.sexuality,
     };
   }
 }

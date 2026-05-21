@@ -1,3 +1,4 @@
+import { SexualityDTO } from 'src/domain/dtos/sexualityDto';
 import { Sexuality } from 'src/domain/entities/sexuality';
 import { GenderRepository } from 'src/domain/repositories/genderRepository';
 import { SexualityRepository } from 'src/domain/repositories/sexualityRepository';
