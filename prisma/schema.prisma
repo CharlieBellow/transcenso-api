@@ -1,11 +1,13 @@
 // npx prisma studio > http://localhost:5555/
 
-generator client {
-  provider = "prisma-client-js"
+datasource db {
+  provider = "postgresql"
 }
 
-datasource db {
-  provider = "postgresql" 
+generator client {
+  provider     = "prisma-client-js"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
 }
 
 model Gender {

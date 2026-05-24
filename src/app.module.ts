@@ -1,16 +1,10 @@
-import { Module, ValidationPipe } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 
-import { DatabaseModule } from './database/database.module';
-
-import { APP_PIPE } from '@nestjs/core';
+import { HttpModule } from 'src/infra/http/http.module';
 
 @Module({
-  imports: [DatabaseModule],
-  providers: [
-    {
-      provide: APP_PIPE,
-      useClass: ValidationPipe,
-    },
-  ],
+  imports: [HttpModule],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

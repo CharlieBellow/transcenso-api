@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Sexuality } from 'src/domain/entities/sexuality';
-import { SexualityRepository } from 'src/domain/repositories/sexualityRepository';
-import { PrismaSexualityMapper } from 'src/infra/database/prisma/mappers/prismaSexualityMapper';
-import { PrismaService } from 'src/infra/database/prisma/PrismaService';
+import { Sexuality } from '../../../../domain/entities/sexuality';
+import { SexualityRepository } from '../../../../domain/repositories/sexualityRepository';
+import { PrismaSexualityMapper } from '../../../../infra/database/prisma/mappers/prismaSexualityMapper';
+import { PrismaService } from '../../../../infra/database/prisma/PrismaService';
 
 @Injectable()
 export class PrismaSexualityRepository implements SexualityRepository {

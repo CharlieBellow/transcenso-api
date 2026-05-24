@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Gender } from 'src/domain/entities/gender';
-import { GenderRepository } from 'src/domain/repositories/genderRepository';
+import { Gender } from '../../../../domain/entities/gender';
+import { GenderRepository } from '../../../../domain/repositories/genderRepository';
 import { PrismaGenderMapper } from '../mappers/prismaGenderMapper';
 import { PrismaService } from '../PrismaService';
 

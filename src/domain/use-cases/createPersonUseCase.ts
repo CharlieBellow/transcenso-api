@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { Pronouns } from 'src/domain/enums/pronouns';
 import { Person } from '../entities/person';
 import { PersonRepository } from '../repositories/personRepository';
-import { Pronouns } from 'src/domain/enums/pronouns';
+import { GenderRepository } from 'src/domain/repositories/genderRepository';
+import { SexualityRepository } from 'src/domain/repositories/sexualityRepository';
 
 interface CreatePersonRequest {
   name: string;
@@ -17,7 +19,11 @@ interface CreatePersonRequest {
 @Injectable()
 export class CreatePersonUseCase {
   // Injetamos o contrato (abstract class) que você já preparou
-  constructor(private personRepository: PersonRepository) {}
+  constructor(
+    private personRepository: PersonRepository,
+    private genderRepository: GenderRepository,
+    private sexualityRepository: SexualityRepository,
+  ) {}
 
   async execute(request: CreatePersonRequest) {
     // 1. Regra de Negócio: Verificar se o CPF já está cadastrado
@@ -25,6 +31,15 @@ export class CreatePersonUseCase {
       request.cpf,
     );
 
+    const gender = await this.genderRepository.findById(request.genderId);
+
+    const sexuality = await this.sexualityRepository.findById(
+      request.sexualityId,
+    );
+
+    if (gender || sexuality) {
+      throw new Error('Gênero ou Sexualidade não encontrados.');
+    }
     if (personAlreadyExists) {
       throw new Error('Uma pessoa com este CPF já está cadastrada.');
     }
@@ -48,7 +63,10 @@ export class CreatePersonUseCase {
 
     // 4. Retornar algo útil (geralmente o DTO)
     return {
-      person: person.toDTO(),
+      person: person.toDTO({
+        gender: gender.toDTO(),
+        sexuality: sexuality.toDTO(),
+      }),
     };
   }
 }

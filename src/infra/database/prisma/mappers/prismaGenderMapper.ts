@@ -1,5 +1,5 @@
-import { Gender as PrismaGender } from '@prisma/client';
-import { Gender } from 'src/domain/entities/gender';
+import { Gender as PrismaGender } from '../../../../generated/prisma/client.js';
+import { Gender } from '../../../../domain/entities/gender';
 
 export class PrismaGenderMapper {
   static toPrisma(gender: Gender) {

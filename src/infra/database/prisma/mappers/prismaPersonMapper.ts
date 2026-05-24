@@ -1,10 +1,10 @@
+import { Person } from '../../../../domain/entities/person';
+import { Pronouns } from '../../../../domain/enums/pronouns';
 import {
-  Person as PrismaPerson,
   Gender as PrismaGender,
+  Person as PrismaPerson,
   Sexuality as PrismaSexuality,
-} from '@prisma/client';
-import { Person } from 'src/domain/entities/person';
-import { Pronouns } from 'src/domain/enums/pronouns';
+} from '../../../../generated/prisma/client.js';
 
 type PrismaPersonWithRelations = PrismaPerson & {
   gender?: PrismaGender;

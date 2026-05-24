@@ -1,4 +1,5 @@
 {
+  "ignorePatterns": ["prisma.config.js", "dist", "node_modules"],
   "singleQuote": true,
   "trailingComma": "all"
 }
