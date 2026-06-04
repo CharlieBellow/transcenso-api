@@ -1,4 +1,4 @@
-import { PrismaClient } from './../generated/prisma/client.js';
+import { PrismaClient } from '../src/generated/prisma/index.js';
 
 const prisma = new PrismaClient();
 
@@ -6,7 +6,7 @@ async function main() {
   console.log('🌱 Iniciando semeadura do banco de dados...');
 
   // 1. Popular os Gêneros Base
-  const homemTrans = await prisma.genders.upsert({
+  const homemTrans = await prisma.gender.upsert({
     where: { slug: 'homem-trans' },
     update: {},
     create: {

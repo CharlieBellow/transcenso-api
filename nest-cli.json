@@ -4,6 +4,7 @@
   "sourceRoot": "src",
   "compilerOptions": {
     "deleteOutDir": true,
-    "assets": [{ "include": "generated/**/*", "watch": true }]
+    "assets": [{ "include": "generated/**/*", "outDir": "dist/src" }],
+    "watchAssets": true
   }
 }
