@@ -22,7 +22,7 @@ export class PrismaGenderMapper {
       description: raw.description,
       slug: raw.slug,
       createdAt: raw.createdAt,
-      updatedAt: raw.updatedAt,
+      updatedAt: raw.updatedAt ?? undefined,
     });
   }
 }

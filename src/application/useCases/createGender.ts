@@ -2,6 +2,7 @@ import { Gender } from 'src/domain/entities/gender';
 import { GenderDTO } from '../../domain/dtos/genderDto';
 import { GenderRepository } from 'src/domain/repositories/genderRepository';
 import { SexualityRepository } from 'src/domain/repositories/sexualityRepository';
+import { Injectable } from '@nestjs/common';
 
 // 1. O Contrato de entrada (O que o formulário do Front vai enviar)
 interface CreateGenderInput {
@@ -9,12 +10,12 @@ interface CreateGenderInput {
   acronym: string;
   description: string;
 }
-
+@Injectable()
 export class CreateGenderUseCase {
   // 2. O Use Case recebe o repositório pelo construtor (Injeção de Dependência)
   constructor(
-    private genderRepository: GenderRepository,
-    private sexualityRepository: SexualityRepository,
+    private readonly genderRepository: GenderRepository,
+    private readonly sexualityRepository: SexualityRepository,
   ) {}
 
   // 3. O método principal que executa a ação

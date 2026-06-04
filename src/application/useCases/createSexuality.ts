@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { SexualityDTO } from 'src/domain/dtos/sexualityDto';
 import { Sexuality } from 'src/domain/entities/sexuality';
 import { GenderRepository } from 'src/domain/repositories/genderRepository';
@@ -8,11 +9,11 @@ interface CreateSexualityInput {
   description: string;
   acronym: string;
 }
-
+@Injectable()
 export class CreateSexualityUseCase {
   constructor(
-    private sexualityRepository: SexualityRepository,
-    private genderRepository: GenderRepository,
+    private readonly sexualityRepository: SexualityRepository,
+    private readonly genderRepository: GenderRepository,
   ) {}
 
   async execute(input: CreateSexualityInput): Promise<SexualityDTO> {

@@ -8,7 +8,8 @@ import { CreatePersonRequests } from 'src/infra/http/dtos/createPersonRequests';
 export class CreatePersonController {
   constructor(
     private createPersonUseCase: CreatePersonUseCase,
-    private prisma: PrismaService) {}
+    private prisma: PrismaService,
+  ) {}
   @Post()
   async handle(@Body() input: CreatePersonRequests) {
     const result = await this.createPersonUseCase.execute(input);
@@ -23,6 +24,7 @@ export class CreatePersonController {
       where: { acronym: 'BIS' },
       update: {},
       create: {
+        id: 'a1b0c442-98fc-11ee-b9d1-0242ac120004',
         title: 'Bissexual',
         acronym: 'BIS',
         slug: 'bissexual',
@@ -35,6 +37,7 @@ export class CreatePersonController {
       where: { slug: 'homem-trans' },
       update: {},
       create: {
+        id: 'e3b0c442-98fc-11ee-b9d1-0242ac120002',
         title: 'Homem Trans',
         acronym: 'HTR',
         slug: 'homem-trans',

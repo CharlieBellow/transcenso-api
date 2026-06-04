@@ -46,7 +46,9 @@ export class PrismaSexualityRepository implements SexualityRepository {
 
   async create(sexuality: Sexuality): Promise<void> {
     const data = PrismaSexualityMapper.toPrisma(sexuality);
-
+    if (data.updatedAt === null || data.updatedAt === undefined) {
+      delete data.updatedAt;
+    }
     await this.prisma.sexuality.create({
       data,
     });
