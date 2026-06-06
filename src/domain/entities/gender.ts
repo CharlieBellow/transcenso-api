@@ -46,6 +46,12 @@ export class Gender {
     };
   }
 
+  public updateDetails(props: { title: string; description: string }) {
+    this.props.title = props.title;
+    this.props.description = props.description;
+    this.props.updatedAt = new Date(); // O Domínio dita quando a data muda!
+  }
+
   get id() {
     return this._id;
   }

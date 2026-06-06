@@ -1,5 +1,5 @@
 import { Gender } from 'src/domain/entities/gender';
-import { GenderDTO } from '../../domain/dtos/genderDto';
+import { GenderDTO } from '../../../domain/dtos/genderDto';
 import { GenderRepository } from 'src/domain/repositories/genderRepository';
 import { SexualityRepository } from 'src/domain/repositories/sexualityRepository';
 import { Injectable } from '@nestjs/common';

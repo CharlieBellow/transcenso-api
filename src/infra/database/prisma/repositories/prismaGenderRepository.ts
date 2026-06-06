@@ -53,4 +53,18 @@ export class PrismaGenderRepository implements GenderRepository {
       data,
     });
   }
+
+  async update(gender: Gender): Promise<void> {
+    const data = PrismaGenderMapper.toPrisma(gender);
+    await this.prisma.gender.update({
+      where: { id: gender.id },
+      data,
+    });
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.gender.delete({
+      where: { id },
+    });
+  }
 }
