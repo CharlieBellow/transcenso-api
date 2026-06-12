@@ -4,7 +4,7 @@ import {
   Gender as PrismaGender,
   Person as PrismaPerson,
   Sexuality as PrismaSexuality,
-} from '../../../../generated/prisma/client.js';
+} from '../../../../generated/prisma/client';
 
 type PrismaPersonWithRelations = PrismaPerson & {
   gender?: PrismaGender;

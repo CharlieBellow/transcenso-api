@@ -86,6 +86,19 @@ export class Person {
     return this.props.sexualityId;
   }
 
+  public updateDetails(props: {
+    name: string;
+    socialName?: string;
+    genderId: string;
+    sexualityId: string;
+  }) {
+    this.props.name = props.name;
+    this.props.socialName = props.socialName;
+    this.props.genderId = props.genderId;
+    this.props.sexualityId = props.sexualityId;
+    this.props.updatedAt = new Date(); // O Domínio dita a alteração
+  }
+
   // Os getters :  Como as propriedades são privadas (private), os getters funcionam como uma janela. Você pode ver o nome (person.name), mas não pode alterá-lo diretamente (person.name = "Outro") sem criar um método específico para isso.
 
   public toDTO(relations: {

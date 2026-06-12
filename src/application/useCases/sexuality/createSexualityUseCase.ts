@@ -6,9 +6,10 @@ import { SexualityRepository } from 'src/domain/repositories/sexualityRepository
 
 interface CreateSexualityInput {
   title: string;
-  description: string;
   acronym: string;
+  description: string;
 }
+
 @Injectable()
 export class CreateSexualityUseCase {
   constructor(
@@ -17,7 +18,7 @@ export class CreateSexualityUseCase {
   ) {}
 
   async execute(input: CreateSexualityInput): Promise<SexualityDTO> {
-    const alreadyExists = await this.sexualityRepository.findByAcronym(
+    const alreadyExists = await this.genderRepository.findByAcronym(
       input.acronym,
     );
 
@@ -36,7 +37,10 @@ export class CreateSexualityUseCase {
       createdAt: new Date(),
       updatedAt: null,
     });
+
     await this.sexualityRepository.create(sexuality);
+
+    // 6. Retornar o DTO (os dados prontos para o Front exibir)
     return sexuality.toDTO();
   }
 }

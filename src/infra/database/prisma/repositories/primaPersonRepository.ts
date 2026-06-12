@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 import { Person } from '../../../../domain/entities/person';
-import { PersonRepository } from '../../../../domain/repositories/personRepository';
+
+import { PersonRepository } from 'src/domain/repositories/personRepository';
 import { PrismaPersonMapper } from '../../../../infra/database/prisma/mappers/prismaPersonMapper';
 import { PrismaService } from '../PrismaService';
 
@@ -51,9 +52,9 @@ export class PrismaPersonRepository implements PersonRepository {
     return PrismaPersonMapper.toDomain(person);
   }
   async listAll(): Promise<Person[]> {
-    const persons = await this.prisma.person.findMany();
+    const people = await this.prisma.person.findMany();
 
-    return persons.map((person) => PrismaPersonMapper.toDomain(person));
+    return people.map((person) => PrismaPersonMapper.toDomain(person));
   }
 
   async create(person: Person): Promise<void> {
@@ -61,6 +62,19 @@ export class PrismaPersonRepository implements PersonRepository {
 
     await this.prisma.person.create({
       data,
+    });
+  }
+  async update(person: Person): Promise<void> {
+    const data = PrismaPersonMapper.toPrisma(person);
+    await this.prisma.person.update({
+      where: { id: person.id },
+      data,
+    });
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.person.delete({
+      where: { id },
     });
   }
 }

@@ -1,5 +1,5 @@
-import { Sexuality as PrismaSexuality } from '../../../../generated/prisma/client.js';
 import { Sexuality } from '../../../../domain/entities/sexuality';
+import { Sexuality as PrismaSexuality } from '../../../../generated/prisma/client';
 
 export class PrismaSexualityMapper {
   static toPrisma(sexuality: Sexuality) {

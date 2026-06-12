@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { CreateGenderUseCase } from 'src/application/useCases/gender/createGender';
+import { CreateGenderUseCase } from 'src/application/useCases/gender/createGenderUseCase';
 import { CreateGenderRequests } from 'src/infra/http/dtos/createGenderRequests';
 
 @Controller('genders')

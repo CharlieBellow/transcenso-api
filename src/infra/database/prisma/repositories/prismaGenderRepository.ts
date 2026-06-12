@@ -46,11 +46,12 @@ export class PrismaGenderRepository implements GenderRepository {
 
   async create(gender: Gender): Promise<void> {
     const data = PrismaGenderMapper.toPrisma(gender);
-    if (data.updatedAt === null || data.updatedAt === undefined) {
-      delete data.updatedAt;
-    }
+
     await this.prisma.gender.create({
-      data,
+      data: {
+        ...data,
+        updatedAt: data.updatedAt ?? undefined,
+      },
     });
   }
 

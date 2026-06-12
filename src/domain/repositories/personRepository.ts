@@ -18,4 +18,6 @@ export abstract class PersonRepository {
   abstract findByCpf(cpf: string): Promise<Person | null>;
   abstract findByRg(rg: string): Promise<Person | null>;
   abstract listAll(): Promise<Person[]>;
+  abstract update(person: Person): Promise<void>;
+  abstract delete(id: string): Promise<void>;
 }
