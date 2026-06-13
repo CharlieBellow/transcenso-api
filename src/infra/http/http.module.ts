@@ -6,6 +6,7 @@ import { FindByAcronymGenderUseCase } from 'src/application/useCases/gender/find
 import { FindByIdGenderUseCase } from 'src/application/useCases/gender/findByIdGenderUseCase';
 import { FindBySlugGenderUseCase } from 'src/application/useCases/gender/findBySlugGenderUseCase';
 import { UpdateGenderUseCase } from 'src/application/useCases/gender/updateGenderUseCase';
+import { CreatePersonUseCase } from 'src/application/useCases/person/createPersonUseCase';
 import { DeletePersonUseCase } from 'src/application/useCases/person/deletePersonUseCase';
 import { FindAllPersonUseCase } from 'src/application/useCases/person/findAllPersonUseCase';
 import { FindByCpfPersonUseCase } from 'src/application/useCases/person/findByCpfPersonUseCase';
@@ -17,7 +18,7 @@ import { FindAllSexualityUseCase } from 'src/application/useCases/sexuality/find
 import { FindByAcronymSexualityUseCase } from 'src/application/useCases/sexuality/findByAcronymSexualityUseCase';
 import { FindByIdSexualityUseCase } from 'src/application/useCases/sexuality/findByIdSexualityUseCase';
 import { FindBySlugSexualityUseCase } from 'src/application/useCases/sexuality/findBySlugSexualityUseCase';
-import { CreatePersonUseCase } from 'src/domain/use-cases/createPersonUseCase';
+
 import { DatabaseModule } from 'src/infra/database/database.module';
 
 import { CreateGenderController } from 'src/infra/http/controllers/gender/createGenderController';
