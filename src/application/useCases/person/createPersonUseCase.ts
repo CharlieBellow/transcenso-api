@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import { PersonDTO } from 'src/domain/dtos/personDto';
 import { Person } from 'src/domain/entities/person';
 import { Pronouns } from 'src/domain/enums/pronouns';
@@ -17,6 +18,7 @@ interface CreatePersonInput {
   pronouns: Pronouns;
 }
 
+@Injectable()
 export class CreatePersonUseCase {
   constructor(
     private personRepository: PersonRepository,

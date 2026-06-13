@@ -6,6 +6,7 @@ export interface CreatePersonRequests {
   birthDate: Date;
   cpf: string;
   rg: string;
+  slug: string;
   pronouns: Pronouns;
   genderId: string;
   sexualityId: string;
