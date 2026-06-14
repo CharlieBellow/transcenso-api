@@ -4,7 +4,7 @@ import {
   Gender as PrismaGender,
   Person as PrismaPerson,
   Sexuality as PrismaSexuality,
-} from '../../../../generated/prisma/client';
+} from 'src/generated/prisma';
 
 type PrismaPersonWithRelations = PrismaPerson & {
   gender?: PrismaGender;
@@ -15,7 +15,7 @@ export class PrismaPersonMapper {
   static toPrisma(person: Person) {
     return {
       id: person.id,
-      name: person.name,
+      civilName: person.civilName,
       socialName: person.socialName,
       birthDate: person.birthDate,
       cpf: person.cpf,
@@ -30,8 +30,8 @@ export class PrismaPersonMapper {
   static toDomain(raw: PrismaPersonWithRelations): Person {
     return new Person({
       id: raw.id,
-      name: raw.name,
-      socialName: raw.socialName,
+      civilName: String(raw.civilName),
+      socialName: raw.socialName ? String(raw.socialName) : undefined,
       birthDate: raw.birthDate,
       cpf: raw.cpf,
       rg: raw.rg,

@@ -1,3 +1,4 @@
 # .eslintignore
 dist
 node_modules
+prisma.config.ts

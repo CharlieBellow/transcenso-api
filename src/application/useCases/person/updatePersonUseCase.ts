@@ -32,7 +32,7 @@ export class UpdatePersonUseCase {
     }
 
     person.updateDetails({
-      name: input.name,
+      civilName: input.civilName,
       socialName: input.socialName,
       genderId: input.genderId,
       sexualityId: input.sexualityId,

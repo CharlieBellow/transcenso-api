@@ -1,5 +1,7 @@
 // npx prisma studio > http://localhost:5555/
 
+// export $(cat .env | xargs) && npx prisma generate
+
 datasource db {
   provider = "postgresql"
 }
@@ -41,7 +43,7 @@ model Sexuality {
 
 model Person {
   id          String   @id @default(uuid())
-  name        String
+  civilName   String
   socialName  String?
   slug        String   @unique
   cpf         String   @unique

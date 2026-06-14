@@ -1,7 +1,7 @@
 import { Pronouns } from 'src/domain/enums/pronouns';
 
 export interface CreatePersonRequests {
-  name: string;
+  civilName: string;
   socialName: string;
   birthDate: Date;
   cpf: string;

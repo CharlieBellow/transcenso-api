@@ -7,7 +7,7 @@ import { PersonRepository } from 'src/domain/repositories/personRepository';
 import { SexualityRepository } from 'src/domain/repositories/sexualityRepository';
 
 interface CreatePersonInput {
-  name: string;
+  civilName: string;
   socialName: string;
   slug: string;
   cpf: string;
@@ -56,17 +56,9 @@ export class CreatePersonUseCase {
     });
     await this.personRepository.create(person);
 
-    return {
-      id: person.id,
-      name: person.name,
-      socialName: person.socialName,
-      slug: person.slug,
-      cpf: person.cpf,
-      rg: person.rg,
+    return person.toDTO({
       gender: gender.toDTO(),
       sexuality: sexuality.toDTO(),
-      birthDate: person.birthDate,
-      pronouns: person.pronouns,
-    };
+    });
   }
 }

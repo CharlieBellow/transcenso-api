@@ -6,7 +6,7 @@ import { Pronouns } from 'src/domain/enums/pronouns';
 // a interface é para definir o que vamos receber no formulário, ou seja, os dados que vamos usar para criar uma pessoa no banco.
 export interface PersonProps {
   id?: string;
-  name: string;
+  civilName: string;
   slug?: string;
   genderId: string;
   sexualityId: string;
@@ -27,15 +27,15 @@ export class Person {
   // O constructor:  É o guarda da porta. Quando você der um new Person(...), o código dentro do construtor roda imediatamente.
   constructor(props: PersonProps) {
     this._id = props.id ?? crypto.randomUUID();
-    if (!props.name || props.name.trim() === '') {
-      throw new Error('O nome é obrigatório.');
+    if (!props.civilName || props.civilName.trim() === '') {
+      throw new Error('O nome civil é obrigatório.');
     }
 
     if (props.birthDate > new Date()) {
       throw new Error('A data de nascimento não pode ser no futuro.');
     }
 
-    const generatedSlug = props.name
+    const generatedSlug = props.civilName
       .toLowerCase()
       .trim()
       .normalize('NFD') // Remove acentos
@@ -52,8 +52,8 @@ export class Person {
   get id() {
     return this._id;
   }
-  get name() {
-    return this.props.name;
+  get civilName() {
+    return this.props.civilName;
   }
 
   get socialName() {
@@ -87,19 +87,19 @@ export class Person {
   }
 
   public updateDetails(props: {
-    name: string;
+    civilName: string;
     socialName?: string;
     genderId: string;
     sexualityId: string;
   }) {
-    this.props.name = props.name;
+    this.props.civilName = props.civilName;
     this.props.socialName = props.socialName;
     this.props.genderId = props.genderId;
     this.props.sexualityId = props.sexualityId;
     this.props.updatedAt = new Date(); // O Domínio dita a alteração
   }
 
-  // Os getters :  Como as propriedades são privadas (private), os getters funcionam como uma janela. Você pode ver o nome (person.name), mas não pode alterá-lo diretamente (person.name = "Outro") sem criar um método específico para isso.
+  // Os getters :  Como as propriedades são privadas (private), os getters funcionam como uma janela. Você pode ver o nome (person.civilName), mas não pode alterá-lo diretamente (person.civilName = "Outro") sem criar um método específico para isso.
 
   public toDTO(relations: {
     gender: GenderDTO;
@@ -107,8 +107,8 @@ export class Person {
   }): PersonDTO {
     return {
       id: this._id,
-      name: this.name,
-      socialName: this.socialName,
+      // civilName: this.civilName, não é necessário, pois o nome Social deve ser utilizado para identificação da pessoa em todas as telas do sistema, e o nome civil deve ser utilizado apenas para fins jurídicos, de registro e documentação.
+      socialName: this.socialName || this.civilName,
       slug: this.slug,
       cpf: this.cpf,
       rg: this.rg,
@@ -117,5 +117,10 @@ export class Person {
       gender: relations.gender,
       sexuality: relations.sexuality,
     };
+  }
+
+  // Se um dia o módulo administrativo precisar do nome civil estrito:
+  public getCivilNameForLegalPurposes(): string {
+    return this.civilName;
   }
 }
